@@ -29,7 +29,6 @@ export class ImagesList extends Component {
       newPixabayAPI
         .searchPhotos()
         .then(result => {
-          console.log(result);
           this.setState({ searchResults: result, status: 'resolved' });
         })
         .catch(error => {

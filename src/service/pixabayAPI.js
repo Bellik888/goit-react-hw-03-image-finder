@@ -28,7 +28,6 @@ export class PixabayAPI {
 
   async searchPhotos() {
     this.urlWithKey = this.BASE_URL + `?key=${this.API_KEY}`;
-    console.log(this.searchQuery, this.page);
     let params = `&q=${this._searchQuery}&page=${this.page}&per_page=${this.perPage}`;
     let url = this.urlWithKey + params;
 

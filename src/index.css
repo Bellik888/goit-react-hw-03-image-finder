@@ -216,12 +216,12 @@ img {
   display: block;
   margin: 20px auto;
   padding: 15px;
-  width: 90%;
+  width: 60%;
   background-color: #303f9f;
   border: none;
+  border-radius: 15px;
   color: #fff;
   cursor: pointer;
-  transition: backgroung-color, 500ms;
 }
 
 .container-title {
