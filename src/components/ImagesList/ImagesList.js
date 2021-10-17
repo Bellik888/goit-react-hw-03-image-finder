@@ -6,6 +6,7 @@ import { PixabayAPI } from '../../service/pixabayAPI';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { Button } from '../Button/Button';
+import { Modal } from '../Modal/Modal';
 
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '23189092-912e167e41c5e7d499821c37e';
@@ -60,10 +61,27 @@ export class ImagesList extends Component {
       });
   };
 
+  findImg = () => {
+    const largeImg = this.state.searchResults.find(result => {
+      return result.id === this.state.largeImageId;
+    });
+    return largeImg;
+  };
+
+  openModal = e => {
+    this.setState({
+      isModalOpen: true,
+      largeImageId: Number(e.currentTarget.id),
+    });
+  };
+  closeModal = () => this.setState({ isModalOpen: false });
+
   render() {
-    const { searchResults, status } = this.state;
+    const { searchResults, largeImageId, isModalOpen, status } = this.state;
+
     const paramLoadMore =
       searchResults.length > 0 && searchResults.length >= 12;
+
     if (status === 'idle') {
       return (
         <div className="container-title">
@@ -111,11 +129,14 @@ export class ImagesList extends Component {
               <p>Sorry, we did not find this</p>
             </div>
           )}
-          {/* {isModalOpen && (
+          {isModalOpen && (
             <Modal largeImageId={largeImageId} onClose={this.closeModal}>
-              <img src={findImg().largeImageURL} alt={findImg().tags} />
+              <img
+                src={this.findImg().largeImageURL}
+                alt={this.findImg().tags}
+              />
             </Modal>
-          )} */}
+          )}
         </>
       );
     }
