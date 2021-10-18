@@ -61,8 +61,9 @@ export class ImagesList extends Component {
   };
 
   findImg = () => {
-    const largeImg = this.state.searchResults.find(result => {
-      return result.id === this.state.largeImageId;
+    const { searchResults, largeImageId } = this.state;
+    const largeImg = searchResults.find(result => {
+      return result.id === largeImageId;
     });
     return largeImg;
   };
@@ -77,6 +78,7 @@ export class ImagesList extends Component {
 
   render() {
     const { searchResults, largeImageId, isModalOpen, status } = this.state;
+    const { handleClick, findImg, openModal, closeModal } = this;
 
     const paramLoadMore =
       searchResults.length > 0 && searchResults.length >= 12;
@@ -117,23 +119,20 @@ export class ImagesList extends Component {
           <ImageGallery>
             {searchResults.length > 0 && (
               <ImageGalleryItem
-                openModal={this.openModal}
+                openModal={openModal}
                 searchResults={searchResults}
               />
             )}
           </ImageGallery>
-          {paramLoadMore > 0 && <Button onClick={this.handleClick} />}
+          {paramLoadMore > 0 && <Button onClick={handleClick} />}
           {searchResults.length === 0 && (
             <div className="container-title">
               <p>Sorry, we did not find this</p>
             </div>
           )}
           {isModalOpen && (
-            <Modal largeImageId={largeImageId} onClose={this.closeModal}>
-              <img
-                src={this.findImg().largeImageURL}
-                alt={this.findImg().tags}
-              />
+            <Modal largeImageId={largeImageId} onClose={closeModal}>
+              <img src={findImg().largeImageURL} alt={findImg().tags} />
             </Modal>
           )}
         </>

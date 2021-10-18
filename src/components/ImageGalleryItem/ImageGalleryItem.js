@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const ImageGalleryItem = ({ searchResults, openModal }) => {
   return (
     <>
@@ -12,4 +14,8 @@ export const ImageGalleryItem = ({ searchResults, openModal }) => {
       ))}
     </>
   );
+};
+ImageGalleryItem.propTypes = {
+  searchResults: PropTypes.array,
+  openModal: PropTypes.func,
 };
